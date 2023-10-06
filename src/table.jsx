@@ -60,34 +60,51 @@ export default function BasicTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {calls?.map(({sno,company_name,recruiter_id,jobseeker_id,status,matching_words,file_name}) => (
-            <TableRow
-              key={sno}
-              sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
-            >
-              <TableCell align="right">{sno}</TableCell>
-              <TableCell component="th" scope="row">
-                {company_name}
-              </TableCell>
-              <TableCell align="right">{recruiter_id}</TableCell>
-              <TableCell align="right">{jobseeker_id}</TableCell>
-              <TableCell align="right">{status?
-            <span className="green">Genuine</span>  :
-            <span className="red">Suspect</span>  
-            }</TableCell>
-              <TableCell align="right" title={matching_words.join(', ')}>{matching_words.join(', ')}</TableCell>
-              {/* <TableCell align="right">{file_name}</TableCell> */}
-              <TableCell align="right">
-                {/* {protein} */}
+          {calls?.map(
+            ({
+              sno,
+              company_name,
+              recruiter_id,
+              jobseeker_id,
+              status,
+              matching_words,
+              file_name,
+            }) => (
+              <TableRow
+                key={sno}
+                sx={{ "&:last-child td, &:last-child th": { border: 0 } }}
+              >
+                <TableCell align="right">{sno}</TableCell>
+                <TableCell component="th" scope="row">
+                  {company_name}
+                </TableCell>
+                <TableCell align="right">{recruiter_id}</TableCell>
+                <TableCell align="right">{jobseeker_id}</TableCell>
+                <TableCell align="right">
+                  {status ? (
+                    <span className="green">Genuine</span>
+                  ) : (
+                    <span className="red">Suspect</span>
+                  )}
+                </TableCell>
+                <TableCell align="right" title={matching_words.join(", ")}>
+                  {status ? "All looks good" : matching_words.join(", ")}
+                </TableCell>
+                {/* <TableCell align="right">{file_name}</TableCell> */}
+                <TableCell align="right">
+                  {/* {protein} */}
 
-                <audio controls>
-                  <source src={file_name} type="audio/mpeg" />
-                  
-                </audio>
-                
-              </TableCell>
-            </TableRow>
-          ))}
+                  <audio controls>
+                    {/* <source src={file_name} type="audio/mpeg" /> */}
+                    <source src={MissingAudio} type="audio/mpeg" />
+                  </audio>
+                </TableCell>
+                <TableCell align="right" title='Get notification'>
+                  {status ? null : <span>&#128276;</span>}
+                </TableCell>
+              </TableRow>
+            )
+          )}
         </TableBody>
       </Table>
     </TableContainer>
