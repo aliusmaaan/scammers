@@ -7,7 +7,8 @@ function App() {
     <div>
       <header className="App-container">
         <h1>Call Tracking</h1>
-      <BasicTable />
+
+          <BasicTable />
         
       </header>
     </div>

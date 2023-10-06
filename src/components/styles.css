@@ -1,0 +1,97 @@
+.notificationPreviewContainer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  height: 480px;
+  width: 380px;
+  border-radius: 4px;
+  padding: 10px;
+  background-image: url("../media/iphone.png");
+  background-size: cover;
+  
+}
+.np {
+  
+}
+.npContent {
+  background-color: #FFFFFF;
+  border-radius: 16px;
+  padding: 12px;
+  width: 280px;
+
+  margin: auto;
+  margin-top: 120px;
+  box-shadow: 0px 1px 7px 1px #1f5ca333;
+}
+
+.npFrame {
+  display: flex;
+  margin-bottom: 8px;
+  color: #8993A4;
+  font-size: 12px;
+  align-items: center;
+
+  
+}
+.npFrame span {
+  margin-left: 6px;
+}
+
+.npFrame img {
+  width: 16px;
+}
+
+.icon {
+  font-size: 16px;
+}
+.iconDot {
+  font-size: 3px;
+}
+
+.icon:last-child {
+  margin-left: auto;
+}
+
+.npHeading {
+  font-size: 14px;
+  font-weight: 600;
+  color: #0D1E40;
+  margin-bottom: 4px;
+  text-align: left;
+  display: flex;
+  line-height: 18px;
+}
+
+.npHeading .icon {
+  margin-right: 8px;
+}
+
+.npBody {
+  color: #8993A4;
+  font-size: 13px;
+  font-weight: 400;
+  margin-bottom: 8px;
+  
+  text-align: left;
+  padding-top: 10px;
+}
+
+.btn {
+  color: #3D89F0;
+  font-size: 13px;
+  font-weight: 600;
+  border: 1px solid #3D89F0;
+  padding: 2px 4px;
+  border-radius: 4px;
+}
+
+.btn.report {
+  border: none;
+  font-weight: 400;
+  margin-right: 8px;
+}
+
+.btnContainer {
+  display: flex;
+  justify-content: flex-end;
+}

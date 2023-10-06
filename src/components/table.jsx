@@ -1,14 +1,17 @@
 import * as React from "react";
 import Table from "@mui/material/Table";
+import Notification from "./notification";
 import TableBody from "@mui/material/TableBody";
 import TableCell from "@mui/material/TableCell";
 import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import { mockedCalls } from "./data";
-import { getCalls } from "./services";
-import MissingAudio from "./media/sample.mp3";
+import { mockedCalls } from "../data";
+import { getCalls } from "../services";
+import MissingAudio from "../media/sample.mp3";
+import { statusObj, callsAPIDomain } from "../constants";
+import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 
 // import Audio from './media/sample.mp3'
 
@@ -26,13 +29,18 @@ const rows = [
 
 export default function BasicTable() {
   const [calls, setCalls] = React.useState();
+  const [showNotification, toggleNotification] = React.useState(false);
 
   React.useEffect(() => {
     getCalls
-      .then(function (response) {
-        setCalls(response);
+      .then(   ({data}) =>{
+        console.log('success calls',data);
+        // response.json().then((resp)=>{
+        //   console.log('resp.json() :>> ', resp);
+          // setCalls(resp);
+          setCalls(data);
+        // })
         // handle success
-        console.log('success calls',response);
       })
       .catch(function (error) {
         // handle error
@@ -44,6 +52,10 @@ export default function BasicTable() {
       });
   }, []);
   console.log("calls :>> ", calls);
+
+  const handleNotification = () => {
+    toggleNotification((prevState)=> !prevState)
+  };
 
   return (
     <TableContainer component={Paper}>
@@ -81,32 +93,41 @@ export default function BasicTable() {
                 <TableCell align="right">{recruiter_id}</TableCell>
                 <TableCell align="right">{jobseeker_id}</TableCell>
                 <TableCell align="right">
-                  {status ? (
-                    <span className="green">Genuine</span>
+                  <span className={status}>{statusObj[status]}</span>
+                  {/* {status ? (
                   ) : (
                     <span className="red">Suspect</span>
-                  )}
+                  )} */}
                 </TableCell>
-                <TableCell align="right" title={matching_words.join(", ")}>
-                  {status ? "All looks good" : matching_words.join(", ")}
+                <TableCell align="right" title={matching_words}>
+                   {matching_words}
                 </TableCell>
                 {/* <TableCell align="right">{file_name}</TableCell> */}
                 <TableCell align="right">
                   {/* {protein} */}
 
                   <audio controls>
-                    {/* <source src={file_name} type="audio/mpeg" /> */}
-                    <source src={MissingAudio} type="audio/mpeg" />
+                    <source src={`${callsAPIDomain}${file_name}`} type="audio/mpeg" />
+                    {/* <source src={MissingAudio} type="audio/mpeg" /> */}
                   </audio>
                 </TableCell>
                 <TableCell align="right" title='Get notification'>
-                  {status ? null : <span>&#128276;</span>}
+                  {status==='FLAGGED' ?   
+                  <span className="bell" onClick={handleNotification}>&#128276;</span>
+                  :null}
                 </TableCell>
               </TableRow>
             )
           )}
         </TableBody>
       </Table>
+
+      {showNotification ? (
+          <Notification onClick={handleNotification} />      
+      ) : null}
+      <div className="result">
+
+      </div>
     </TableContainer>
   );
 }
