@@ -15,30 +15,20 @@ import { ClickAwayListener } from '@mui/base/ClickAwayListener';
 
 // import Audio from './media/sample.mp3'
 
-function createData(name, calories, fat, carbs, protein) {
-  return { name, calories, fat, carbs, protein };
-}
-
-const rows = [
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-];
 
 export default function BasicTable() {
   const [calls, setCalls] = React.useState();
+  const [text, setText] = React.useState();
   const [showNotification, toggleNotification] = React.useState(false);
 
   React.useEffect(() => {
     getCalls
-      .then(   ({data}) =>{
+      .then(   ({data=[]}) =>{
         console.log('success calls',data);
         // response.json().then((resp)=>{
         //   console.log('resp.json() :>> ', resp);
           // setCalls(resp);
-          setCalls(data);
+          setCalls(data.length?data:mockedCalls);
         // })
         // handle success
       })
@@ -75,6 +65,7 @@ export default function BasicTable() {
           {calls?.map(
             ({
               sno,
+              data:textData,
               company_name,
               recruiter_id,
               jobseeker_id,
@@ -112,6 +103,7 @@ export default function BasicTable() {
                   </audio>
                 </TableCell>
                 <TableCell align="right" title='Get notification'>
+                  <span className='run' onClick={()=>setText(textData)}>&#10227;</span>
                   {status==='FLAGGED' ?   
                   <span className="bell" onClick={handleNotification}>&#128276;</span>
                   :null}
@@ -122,12 +114,16 @@ export default function BasicTable() {
         </TableBody>
       </Table>
 
+      
+
       {showNotification ? (
           <Notification onClick={handleNotification} />      
       ) : null}
+      {text?
       <div className="result">
-
-      </div>
+        {text}
+      </div>:null
+      }
     </TableContainer>
   );
 }
