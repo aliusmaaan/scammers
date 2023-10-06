@@ -13,8 +13,8 @@
   }
 }
 
-.App-header {
-  padding: 40px;
+.App-container {
+  padding: 0px 100px;
   background-color: #282c34;
   min-height: 100vh;
   display: flex;
@@ -24,16 +24,17 @@
   font-size: calc(10px + 2vmin);
   color: white;
 }
-
-.App-link {
-  color: #61dafb;
+audio{
+ width: 200px; 
+}
+table th, table td{
+  text-align: left !important;
+}
+.red{
+color: red;
+}
+.green{
+color: green;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+
